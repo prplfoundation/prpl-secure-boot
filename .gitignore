@@ -1,0 +1,7 @@
+*.o
+*.swp
+.#*#
+#*#
+*.bin
+*.pem
+*.signed
