@@ -23,8 +23,12 @@ void write_public_key(RSA *rsa_pub)
     int i;
     unsigned char modulus[1024];
     unsigned int mod_len;
+    unsigned char expo[1024];
+    unsigned int expo_len;
+
 
     mod_len = BN_bn2bin(rsa_pub->n, modulus);
+    expo_len = BN_bn2bin(rsa_pub->e, expo);
 
     printf("/*\
 \n\
@@ -51,15 +55,25 @@ void write_public_key(RSA *rsa_pub)
     for (i=0;i<mod_len;i++) {
         if (i % 16 == 0)
             printf("    ");
-        printf("%02x", modulus[i]);
+        printf("0x%02x", modulus[i]);
         if (i!=mod_len-1)
             printf(", ");
         if ((i+1) % 16 == 0)
             printf("\n");
     }
-    printf("};\n\n");
+    printf("};\n");
 
     printf("unsigned int rsa_mod_len = %d;\n\n", mod_len);
+
+    printf("unsigned char rsa_expo[] = {");
+    for (i=0;i<expo_len;i++) {
+        printf("0x%02x", expo[i]);
+        if (i!=expo_len-1)
+            printf(", ");
+    }
+    printf("};\n");
+
+    printf("unsigned int rsa_expo_len = %d;\n\n", expo_len);
 
     printf("#endif\n");
 }
