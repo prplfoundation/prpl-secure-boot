@@ -12,6 +12,10 @@ This main code must perform the same kind of verification for other applications
 prplSecureBoot™ and prplHypervisor™ technologies are part of the prplSecurity™ open source 
 framework and are released under prpl Foundation permissive license – see http://prplfoundation.org/ip-policy.
 
+## Dependencies
+* GNU make
+* GCC
+* OpenSSL development libraries and include files in path (package 'libssl-dev' on Ubuntu)
 
 ## How to build
 
