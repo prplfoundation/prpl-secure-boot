@@ -9,4 +9,4 @@ all:
 	gcc -o ../bin/gen_rootkey gen_rootkey.o rsa.o -lcrypto
 
 clean:
-	rm -f *.o ./bin/gen_header ../bin/gen_rootkey
+	rm -f *.o ../bin/gen_header ../bin/gen_rootkey

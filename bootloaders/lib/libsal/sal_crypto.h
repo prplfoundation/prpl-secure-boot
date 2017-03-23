@@ -19,6 +19,8 @@ This code was written by Marcelo Veiga Neves at Embedded System Group (GSE) at P
 #define __SAL_CRYPTO__
 
 #ifdef AXTLS_LITE
+#include <axtls-lite/os_int.h>
+#include <axtls-lite/os_port.h>
 #include <axtls-lite/crypto.h>
 typedef SHA256_CTX sha256_t;
 typedef RSA_CTX rsa_t;
