@@ -24,6 +24,16 @@ This code was written by Marcelo Veiga Neves at Embedded System Group (GSE) at P
 
 static FNUSERAPP firmware_start = (FNUSERAPP) USER_APP_ADDR;
 
+void udelay(uint32_t usec)
+{
+    uint32_t now = _CP0_GET_COUNT();
+    uint32_t final = now + usec * (F_CPU / 1000000) / 2;
+
+    for (;;) {
+        now = _CP0_GET_COUNT();
+        if ((int32_t) (now - final) >= 0) break;
+    }
+}
 
 int main()
 {
@@ -193,15 +203,4 @@ int firmware_verify(void)
     udelay(1000);
 
     return 0;
-}
-
-void udelay(uint32_t usec)
-{
-    uint32_t now = _CP0_GET_COUNT();
-    uint32_t final = now + usec * (F_CPU / 1000000) / 2;
-
-    for (;;) {
-        now = _CP0_GET_COUNT();
-        if ((int32_t) (now - final) >= 0) break;
-    }
 }
