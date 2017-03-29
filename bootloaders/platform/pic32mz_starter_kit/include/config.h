@@ -11,7 +11,8 @@ FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATS
 LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, 
 ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-This code was written by Marcelo Veiga Neves at Embedded System Group (GSE) at PUCRS/Brazil.
+This code was originally written by Carlos Moratelli as part of the port o PIC32MZ-based boards to
+the PIC32-avrdude-bootloader project.
 
 */
 

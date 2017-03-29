@@ -32,11 +32,7 @@
     #error    Board/CPU combination not defined
 #endif
 
-// core timer ticks per second is always 1/2 the CPU ticks, so devide by 2 to get ticks per second
-// divide by another 1000 (or 2* 1000) to get ticks per millisecond
-// we add the 1000 to round up or down on a faction of a millisecond
-#define CORE_TIMER_TICKS_PER_MILLISECOND    ((F_CPU + 1000) / 2000)
-
+#define board_halt()  asm("SDBBP 0");
 
 #endif /* _BOARD_H_ */
 

@@ -35,19 +35,6 @@ typedef unsigned int uint;
 
 #include "board.h"
 
-typedef void __attribute__((far, noreturn)) (* FNUSERAPP)(void);
-#define check_has_firmware ((*((unsigned long *) USER_APP_ADDR)) != ((unsigned long) -1))
-#define asm_halt()  asm("SDBBP 0");
-
-#define FNIMGJMP FNUSERAPP
-
-extern uint32 _skip_ram_space_addr;
-extern uint32 _skip_ram_space_end_adder;
-extern uint32 _RAM_SKIP_SIZE;
-
-#define offsetBaseAddrInfo  (0x008ul)
-#define offsetHeaderInfo    (0x010ul)
-
 #pragma pack(push,2)
 typedef struct {
     unsigned char header_version;       // Version number of this header
@@ -67,5 +54,16 @@ firmware_header_t * firmware_read_header(uint32 base_addr);
 #else
 #define INFO(X,...) do{}while(0)
 #endif
+
+/* Part of this code was originally written by Rich Testardi (rich@testardi.com);
+ * please preserve this reference. */
+typedef void __attribute__((far, noreturn)) (* FNUSERAPP)(void);
+#define check_has_firmware ((*((unsigned long *) USER_APP_ADDR)) != ((unsigned long) -1))
+extern uint32 _skip_ram_space_addr;
+extern uint32 _skip_ram_space_end_adder;
+extern uint32 _RAM_SKIP_SIZE;
+
+#define offsetBaseAddrInfo  (0x008ul)
+#define offsetHeaderInfo    (0x010ul)
 
 #endif  /* _BOOTLOADER_H_ */

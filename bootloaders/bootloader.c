@@ -52,7 +52,7 @@ int main()
     }
 
     /* No valid firmware image was found, stop! */
-    asm_halt();
+    board_halt();
 
     return 0;
 }
@@ -190,6 +190,8 @@ int firmware_verify(void)
             // computed hash doesn't match
             LED2_ON(); // YELLOW ON
         }
+    } else {
+        INFO("No firmware image found.\n");
     }
 
     board_cleanup();
