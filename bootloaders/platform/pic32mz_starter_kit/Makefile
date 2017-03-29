@@ -10,7 +10,7 @@ BIN2HEX=${BINPREFIX}bin2hex
 
 TOPDIR=../..
 
-NAME=Microchip_Eth_Starter_Kit_SecureBoot
+NAME=Microchip_Eth_Starter_Kit_prplSecureBoot
 MCU=32MZ2048EFM144
 CRT=$(TOPDIR)/arch/mips/pic32mz/boot.S
 BOARD_CFLAGS=-DPIC32MZ -DPIC32_SRS_SET_COUNT=8 \
