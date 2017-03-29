@@ -62,5 +62,10 @@ typedef struct {
 
 firmware_header_t * firmware_read_header(uint32 base_addr);
 
+#if 1
+#define INFO(X,...) _printf(X, ##__VA_ARGS__)
+#else
+#define INFO(X,...) do{}while(0)
+#endif
 
 #endif  /* _BOOTLOADER_H_ */

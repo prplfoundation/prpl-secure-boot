@@ -40,6 +40,11 @@ int main()
     /* Board initialization */
     board_init();
 
+    INFO("===========================================================\n");
+    INFO("prplSecureBoot %s [%s, %s]\n", "v0.1.0", __DATE__, __TIME__);
+    INFO("Copyright (c) 2017, prpl Foundation\n");
+    INFO("===========================================================\n");
+
     /* Verify firmware */
     if (firmware_verify() == 0) {
         /* Everithing is good, just jump to user app */
@@ -57,24 +62,24 @@ void print_hex(char *prefix, unsigned char buffer[], int len)
 {
     int i = 0;
 
-    _printf("%s", prefix);
+    INFO("%s", prefix);
 
     for(i = 0; i < len; i++)
     {
-        _printf("%02x", buffer[i]);
+        INFO("%02x", buffer[i]);
     }
 
-    _printf(" (%d)\n", len);
+    INFO(" (%d)\n", len);
 }
 
 void firmware_print_header(firmware_header_t *header)
 {
-    _printf("\nprplSecureBoot Firmware Header:\n");
-    _printf("Header version:          0x%02x\n", header->header_version);
-    _printf("Flash start address:     0x%02x\n", header->flash_start_addr);
-    _printf("Execution address:       0x%02x\n", header->user_app_addr);
-    _printf("Firmware start address:  0x%02x\n", header->firmware_start_addr);
-    _printf("Firmware length:         0x%02x (%d)\n", header->firmware_length, header->firmware_length);
+    INFO("prplSecureBoot Firmware Header:\n");
+    INFO("Header version:          0x%02x\n", header->header_version);
+    INFO("Flash start address:     0x%02x\n", header->flash_start_addr);
+    INFO("Execution address:       0x%02x\n", header->user_app_addr);
+    INFO("Firmware start address:  0x%02x\n", header->firmware_start_addr);
+    INFO("Firmware length:         0x%02x (%d)\n", header->firmware_length, header->firmware_length);
     print_hex("Firmware hash:           ", header->hash, 32);
     print_hex("Firmware signature:      ", header->signature, 256);
     //printf("Header size: %d\n", (int)sizeof(hdr));
@@ -159,11 +164,6 @@ int firmware_verify(void)
     int is_secure = 0;
     firmware_header_t *header;
 
-    _printf("===========================================================\n");
-    _printf("prplSecureBoot %s [%s, %s]\n", "v0.1.0", __DATE__, __TIME__);
-    _printf("Copyright (c) 2017, prpl Foundation\n");
-    _printf("===========================================================\n");
-
     LED1_OFF();
     LED2_OFF();
     LED3_OFF();
@@ -172,21 +172,21 @@ int firmware_verify(void)
     if (header != NULL) {
         unsigned char hash[32];
         firmware_print_header(header);
-        _printf("Verifying hash integrity... ");
+        INFO("Verifying hash integrity... ");
         if(compute_hash(header, hash) == 0) {
-            _printf("OK.\n");
-            _printf("Verifying signature authenticity... ");
+            INFO("OK.\n");
+            INFO("Verifying signature authenticity... ");
             if(verify_signature(header, hash) == 0) {
                 // firmware image was successfully verified
-                _printf("OK.\n");
+                INFO("OK.\n");
                 is_secure = 1;
             } else {
-                _printf("NOK.\n");
+                INFO("NOK.\n");
                 // decrypted hash doesn't match with the computed one
                 LED1_ON(); // RED ON
             }
         } else {
-            _printf("NOK.\n");
+            INFO("NOK.\n");
             // computed hash doesn't match
             LED2_ON(); // YELLOW ON
         }
@@ -195,11 +195,12 @@ int firmware_verify(void)
     board_cleanup();
 
     if (is_secure == 0) {
-        _printf("Invalid firmware.\n");
+        INFO("Invalid firmware.\n");
+        udelay(1000);
         return 1;
     }
 
-    _printf("Starting firmware...\n");
+    INFO("Starting firmware...\n");
     udelay(1000);
 
     return 0;
