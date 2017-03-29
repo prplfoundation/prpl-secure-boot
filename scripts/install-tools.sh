@@ -56,6 +56,7 @@ apt-get --yes --force-yes install libxext-dev:i386
 apt-get --yes --force-yes purge modemmanager
 apt-get --yes --force-yes install srecord
 apt-get --yes --force-yes install libconfig-dev
+apt-get --yes --force-yes install libssl-dev
 
 mkdir -p $DOWNLOAD_DIR
 pushd $DOWNLOAD_DIR
